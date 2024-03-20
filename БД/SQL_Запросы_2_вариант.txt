@@ -1,0 +1,17 @@
+/*1*/
+SELECT FIO AS 'клиент', SUM(price*amount) AS 'общая сумма заказов, рубли'
+FROM client
+JOIN order_client ON order_client.id_client = client.id_client
+JOIN order_list ON order_list.id_order = order_client.id_order
+JOIN dish ON dish.id_dish = order_list.id_dish
+GROUP BY FIO
+ORDER BY SUM(price*amount);
+/*2*/
+SELECT FIO AS 'ФИО клиента', email, name_dish AS 'напиток'
+FROM client
+JOIN order_client ON order_client.id_client = client.id_client
+JOIN order_list ON order_list.id_order = order_client.id_order
+JOIN dish ON dish.id_dish = order_list.id_dish
+JOIN dish_type ON dish_type.id_type = dish.id_type
+WHERE dish.id_type = 6
+ORDER BY FIO, name_dish;
